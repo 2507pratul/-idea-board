@@ -11,12 +11,15 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Print success message
-        run: echo "IdeaBoard CI pipeline is running!"
+      - name: Build backend Docker image
+        run: docker build -t ideaboard-backend:latest ./backend
+
+      - name: Build frontend Docker image
+        run: docker build -t ideaboard-frontend:latest ./frontend
