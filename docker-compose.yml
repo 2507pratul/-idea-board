@@ -1,1 +1,38 @@
-git commit -m "Initial project structure"
+
+services:
+  db:
+    image: postgres:16
+    container_name: ideaboard-db
+    environment:
+      POSTGRES_USER: ideaboard
+      POSTGRES_PASSWORD: idea12345
+      POSTGRES_DB: ideaboard
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ideaboard -d ideaboard"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: ideaboard-backend
+    environment:
+      DATABASE_URL: postgresql://ideaboard:idea12345@db:5432/ideaboard
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    container_name: ideaboard-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

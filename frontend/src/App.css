@@ -1,0 +1,293 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f8fc;
+  color: #202438;
+}
+
+.navbar {
+  padding: 22px 8%;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e9eaf0;
+}
+
+.navbar h2 {
+  color: #6254d9;
+}
+
+.navbar span {
+  color: #777;
+  font-size: 14px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 60px 25px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.tag {
+  color: #6254d9;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.hero h1 {
+  font-size: 38px;
+  margin: 18px 0;
+}
+
+.hero p {
+  color: #777;
+  line-height: 1.6;
+}
+
+.idea-form {
+  background: white;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
+}
+
+.idea-form h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.idea-form form {
+  display: flex;
+  gap: 12px;
+}
+
+.idea-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  outline-color: #6254d9;
+}
+
+.idea-form button {
+  background: #6254d9;
+  color: white;
+  border: none;
+  padding: 0 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.idea-form button:hover {
+  background: #493bbd;
+}
+
+.ideas-section {
+  margin-top: 45px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-heading span {
+  color: #6254d9;
+  font-size: 14px;
+}
+
+.empty-state {
+  background: white;
+  text-align: center;
+  padding: 55px 20px;
+  border-radius: 14px;
+  color: #777;
+}
+
+.empty-icon {
+  font-size: 40px;
+}
+
+.empty-state h3 {
+  color: #333;
+  margin: 15px 0 8px;
+}
+
+.ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.idea-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  transition: 0.2s ease;
+}
+
+.idea-card:hover {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.idea-icon {
+  font-size: 25px;
+}
+
+.idea-card p {
+  margin: 18px 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* Edit section */
+
+.edit-area {
+  margin-top: 18px;
+}
+
+.edit-area textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  resize: vertical;
+  outline-color: #6254d9;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.edit-actions button,
+.edit-button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.edit-actions button:first-child {
+  background: #6254d9;
+  color: white;
+}
+
+.edit-actions button:first-child:hover {
+  background: #493bbd;
+}
+
+.edit-actions button:last-child {
+  background: #eeeef4;
+  color: #444;
+}
+
+.edit-actions button:last-child:hover {
+  background: #dedee8;
+}
+
+.edit-button {
+  background: #eeeaff;
+  color: #6254d9;
+}
+
+.edit-button:hover {
+  background: #ded8ff;
+}
+
+/* Edit and Delete buttons */
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.delete-button {
+  padding: 10px 18px;
+  background: #fff0ef;
+  color: #d93025;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.delete-button:hover {
+  background: #ffdddd;
+}
+
+.edit-actions button:disabled,
+.delete-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error message */
+
+.error {
+  color: #d93025;
+  background: #fff0ef;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #999;
+  font-size: 13px;
+}
+
+/* Responsive design */
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 18px;
+    gap: 10px;
+  }
+
+  .navbar span {
+    font-size: 11px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .idea-form form {
+    flex-direction: column;
+  }
+
+  .idea-form button {
+    padding: 14px;
+  }
+}
