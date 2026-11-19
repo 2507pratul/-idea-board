@@ -19,13 +19,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql://ideaboard:idea12345@localhost:5432/ideaboard"
-)
+# Database connection URL must be provided through an environment variable.
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 def get_connection():
+    if not DATABASE_URL:
+        raise RuntimeError(
+            "DATABASE_URL environment variable is required"
+        )
+
     return psycopg.connect(DATABASE_URL)
 
 
@@ -41,8 +44,6 @@ def create_table():
         """)
 
 
-# Request Models
-
 class IdeaCreate(BaseModel):
     content: str
 
@@ -51,14 +52,10 @@ class IdeaUpdate(BaseModel):
     content: str
 
 
-# Home API
-
 @app.get("/")
 def home():
     return {"message": "Welcome to Idea Board API"}
 
-
-# READ: Get all ideas
 
 @app.get("/api/ideas")
 def get_ideas():
@@ -78,8 +75,6 @@ def get_ideas():
         for row in rows
     ]
 
-
-# CREATE: Add a new idea
 
 @app.post("/api/ideas", status_code=201)
 def create_idea(idea: IdeaCreate):
@@ -104,28 +99,6 @@ def create_idea(idea: IdeaCreate):
         "created_at": row[2].isoformat()
     }
 
-
-@app.delete("/api/ideas/{idea_id}")
-def delete_idea(idea_id: int):
-    with get_connection() as conn:
-        row = conn.execute("""
-            DELETE FROM ideas
-            WHERE id = %s
-            RETURNING id
-        """, (idea_id,)).fetchone()
-
-    if row is None:
-        raise HTTPException(
-            status_code=404,
-            detail="Idea not found"
-        )
-
-    return {
-        "message": "Idea deleted successfully",
-        "id": row[0]
-    }
-
-# UPDATE: Edit an existing idea
 
 @app.put("/api/ideas/{idea_id}")
 def update_idea(idea_id: int, idea: IdeaUpdate):
@@ -157,3 +130,23 @@ def update_idea(idea_id: int, idea: IdeaUpdate):
         "created_at": row[2].isoformat()
     }
 
+
+@app.delete("/api/ideas/{idea_id}")
+def delete_idea(idea_id: int):
+    with get_connection() as conn:
+        row = conn.execute("""
+            DELETE FROM ideas
+            WHERE id = %s
+            RETURNING id
+        """, (idea_id,)).fetchone()
+
+    if row is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Idea not found"
+        )
+
+    return {
+        "message": "Idea deleted successfully",
+        "id": row[0]
+    }
